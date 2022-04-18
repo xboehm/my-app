@@ -5,6 +5,8 @@ name: CI test
 
 on:
   pull_request:
+    types:
+      - opened
     branches:
       - development
 
