@@ -9,7 +9,7 @@ function App() {
         <p>
 
           Edit <code>src/App.js</code> and save to reload.
-          Say cheese!
+          Say cheese! Flash.
         </p>
         <a
           className="App-link"
