@@ -42,10 +42,20 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/react-app
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      - name: Get version variable
+        id: step_one
+        run: |
+          echo "VERSION=$(npm view . version)" >> $GITHUB_ENV
+      - name: Use version variable
+        id: step_two
+        run: |
+          echo "${{ env.VERSION }}"
+
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          #tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
