@@ -68,6 +68,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           #tags: |
-            ${{ env.TAG }}
-            ${{ env.VERSION }}
+           # ${{ env.TAG }}
+            #${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
