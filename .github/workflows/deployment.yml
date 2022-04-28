@@ -50,7 +50,7 @@ jobs:
         run: echo "${{ steps.meta.outputs.labels }}"
 
       - name: Print own tagname
-        run: echo "${{ env.TAG }}${{ env.VERSION }}"
+        run: echo "${{ env.TAG }} ${{ env.VERSION }}"
 
       - name: Get version variable
         id: step_one
@@ -66,8 +66,8 @@ jobs:
         with:
           context: .
           push: true
-          #tags: ${{ steps.meta.outputs.tags }}
-          tags: |
+          tags: ${{ steps.meta.outputs.tags }}
+          #tags: |
             ${{ env.TAG }}
             ${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
