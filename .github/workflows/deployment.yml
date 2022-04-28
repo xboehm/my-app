@@ -42,8 +42,11 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/react-app
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Print metadata
-        run: echo "${{ steps.meta.outputs.tags }} ${{ steps.meta.outputs.labels }}"
+      - name: Print metadata tags
+        run: echo "${{ steps.meta.outputs.tags }}"
+
+      - name: Print metadata labels
+        run: echo "${{ steps.meta.outputs.labels }}"
 
       - name: Get version variable
         id: step_one
