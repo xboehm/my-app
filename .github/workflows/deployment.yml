@@ -1,9 +1,10 @@
 name: Create and publish a Docker image
 
 on:
-  push:
-    branches:
+  pull_request:
+    branches: 
       - development
+    types: [closed]
 
 env:
   REGISTRY: ghcr.io
@@ -13,7 +14,7 @@ env:
 
 jobs:
   build-and-push-to-registries:
-    if: github.event.pull_request.merged
+    if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to multiple registries
     runs-on: ubuntu-latest
     permissions:
