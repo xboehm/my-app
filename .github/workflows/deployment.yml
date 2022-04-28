@@ -49,9 +49,6 @@ jobs:
       - name: Print metadata labels
         run: echo "${{ steps.meta.outputs.labels }}"
 
-      - name: Print own tagname
-        run: echo "${{ env.TAG }} ${{ env.VERSION }}"
-
       - name: Get version variable
         id: step_one
         run: |
@@ -60,6 +57,9 @@ jobs:
         id: step_two
         run: |
           echo "${{ env.VERSION }}"
+
+      - name: Print own tagname
+        run: echo "${{ env.TAG }}${{ env.VERSION }}"
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
