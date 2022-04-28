@@ -1,9 +1,9 @@
-name: Publish Docker image
+name: Publish Docker image on new release
 
 on:
   release:
     types: [published]
-    
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
