@@ -8,10 +8,12 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  TAG: "${{ secrets.DOCKER_USERNAME }}/react-app:"
+  DOCKER_HUB_REPO: "react-app"
+  TAG: "${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}:"
 
 jobs:
   build-and-push-to-registries:
+    if: github.event.pull_request.merged
     name: Build Docker image and push to multiple registries
     runs-on: ubuntu-latest
     permissions:
@@ -43,20 +45,17 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/react-app
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Print metadata tags
-        run: echo "${{ steps.meta.outputs.tags }}"
+      # - name: Print metadata tags
+      #   run: echo "${{ steps.meta.outputs.tags }}"
 
-      - name: Print metadata labels
-        run: echo "${{ steps.meta.outputs.labels }}"
+      # - name: Print metadata labels
+      #   run: echo "${{ steps.meta.outputs.labels }}"
 
-      - name: Get version variable
-        id: step_one
-        run: |
-          echo "VERSION=$(npm view . version)" >> $GITHUB_ENV
-      - name: Use version variable
-        id: step_two
-        run: |
-          echo "${{ env.VERSION }}"
+      - name: Get version from package.json
+        run: echo "VERSION=$(npm view . version)" >> $GITHUB_ENV
+
+      # - name: Use version variable
+      #   run: echo "${{ env.VERSION }}"
 
       - name: Print own tagname
         run: echo "${{ env.TAG }}${{ env.VERSION }}"
@@ -66,6 +65,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          #tags: ${{ env.TAG }}${{ env.VERSION }}
+          #tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.TAG }}${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}

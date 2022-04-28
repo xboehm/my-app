@@ -1,3 +1,5 @@
+# only works with release event!
+
 name: Publish Docker image on new release
 
 on:
