@@ -14,7 +14,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   DOCKER_HUB_REPO: "react-app"
-  TAG: "${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}:"
+  TAG: "${{ secrets.DOCKER_USERNAME }}/${{ DOCKER_HUB_REPO }}:"
 
 jobs:
   build-and-push-to-registries:
