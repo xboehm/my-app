@@ -14,6 +14,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   DOCKER_HUB_REPO: react-app
+  LOCAL_DOCKER_UNAME: ${{ secrets.DOCKER_USERNAME }}
 
 jobs:
   build-and-push-to-registries:
@@ -26,7 +27,7 @@ jobs:
 
     steps:
       - name: "Set environmental variables"
-        run: echo "TAG=$secrets.DOCKER_USERNAME/$DOCKER_HUB_REPO:" >> $GITHUB_ENV
+        run: echo "TAG=$LOCAL_DOCKER_UNAME/$DOCKER_HUB_REPO:" >> $GITHUB_ENV
       
       - name: Checkout repository
         uses: actions/checkout@v3 
