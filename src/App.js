@@ -12,6 +12,7 @@ function App() {
           Say cheese! Flash.
           Coffee is great! Indeed.
           BBQa
+          v0.1.6
         </p>
         <a
           className="App-link"
