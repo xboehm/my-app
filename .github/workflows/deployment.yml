@@ -55,8 +55,8 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
-          tags: |
-            type=semver,pattern={{version}}
+          # tags: |
+          #   type=semver,pattern={{version}}
            
 
       - name: Print metadata tags
