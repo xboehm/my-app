@@ -18,7 +18,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  DOCKER_HUB_REPO: my-app
+  DOCKER_HUB_REPO: my-app2
   LOCAL_DOCKER_UNAME: ${{ secrets.DOCKER_USERNAME }}
 
 jobs:
