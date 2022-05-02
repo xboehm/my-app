@@ -6,19 +6,19 @@ name: Create and publish a Docker image
 #       - development
 #     types: [closed]
 
-on:
-  push:
-    branches: 
-      - development
-
 # on:
 #   push:
-#     tags:
-#       - 'v*'
+#     branches: 
+#       - development
+
+on:
+  push:
+    tags:
+      - 'v*'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  DOCKER_HUB_REPO: my-app2
+  DOCKER_HUB_REPO: my-app
   LOCAL_DOCKER_UNAME: ${{ secrets.DOCKER_USERNAME }}
 
 jobs:
@@ -54,11 +54,14 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
-          # tags: |
-          #   type=semver,pattern={{version}}
+          images: |
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=auto
+          tags: |
+            type=semver,pattern={{version}},value=v9.9.9
            
-
       - name: Print metadata tags
         run: echo "${{ steps.meta.outputs.tags }}"
 
