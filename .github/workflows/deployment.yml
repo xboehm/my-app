@@ -54,7 +54,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
+          images: name=${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }},enable=false
             # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # flavor: |
           #   latest=false
