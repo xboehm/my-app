@@ -18,7 +18,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  DOCKER_HUB_REPO: ${{ github.repository }}
+  DOCKER_HUB_REPO: my-app
   LOCAL_DOCKER_UNAME: ${{ secrets.DOCKER_USERNAME }}
 
 jobs:
@@ -54,9 +54,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: xboehm7/my-app
-          #${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
-
+          images: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
           tags: |
             type=semver,pattern={{version}}
            
