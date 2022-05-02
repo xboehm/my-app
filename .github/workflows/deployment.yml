@@ -54,8 +54,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
+          images: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
+          # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=semver,pattern={{version}}
            
