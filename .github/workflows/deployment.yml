@@ -14,11 +14,11 @@ name: Create and publish a Docker image
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  DOCKER_HUB_REPO: react-app
+  DOCKER_HUB_REPO: ${{ github.repository }}
   LOCAL_DOCKER_UNAME: ${{ secrets.DOCKER_USERNAME }}
 
 jobs:
@@ -54,8 +54,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images:  ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            #${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
+          images: # ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
           tags: |
             type=semver,pattern={{version}}
            
