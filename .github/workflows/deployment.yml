@@ -58,9 +58,9 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           flavor: |
-            latest=auto
+            latest=false
           tags: |
-            type=semver,pattern={{version}},value=v9.9.9
+            type=semver,pattern={{version}}
            
       - name: Print metadata tags
         run: echo "${{ steps.meta.outputs.tags }}"
