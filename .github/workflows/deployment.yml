@@ -1,17 +1,29 @@
 name: Create and publish a Docker image
 
 on:
-  push:
-    branches:
+  pull_request:
+    branches: 
       - development
+    types: [closed]
 
+# on:
+#   push:
+#     branches: 
+#       - development
+
+# on:
+#   push:
+#     tags:
+#       - 'v*'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  TAG: "${{ secrets.DOCKER_USERNAME }}/react-app:"
+  DOCKER_HUB_REPO: react-app
+  LOCAL_DOCKER_UNAME: ${{ secrets.DOCKER_USERNAME }}
 
 jobs:
   build-and-push-to-registries:
+    if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to multiple registries
     runs-on: ubuntu-latest
     permissions:
@@ -19,6 +31,9 @@ jobs:
       packages: write
 
     steps:
+      - name: "Set environmental variables"
+        run: echo "TAG=$LOCAL_DOCKER_UNAME/$DOCKER_HUB_REPO:" >> $GITHUB_ENV
+      
       - name: Checkout repository
         uses: actions/checkout@v3 
 
@@ -40,32 +55,33 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: |
-            ${{ secrets.DOCKER_USERNAME }}/react-app
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # flavor: |
+          #   latest=false
+          # tags: |
+          #   type=semver,pattern={{version}}
+           
+      # - name: Print metadata tags
+      #   run: echo "${{ steps.meta.outputs.tags }}"
 
-      - name: Print metadata tags
-        run: echo "${{ steps.meta.outputs.tags }}"
+      # - name: Print metadata labels
+      #   run: echo "${{ steps.meta.outputs.labels }}"
 
-      - name: Print metadata labels
-        run: echo "${{ steps.meta.outputs.labels }}"
+      - name: Get version from package.json
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
-      - name: Get version variable
-        id: step_one
-        run: |
-          echo "VERSION=$(npm view . version)" >> $GITHUB_ENV
-      - name: Use version variable
-        id: step_two
-        run: |
-          echo "${{ env.VERSION }}"
+      # - name: Use version variable
+      #   run: echo "${{ env.VERSION }}"
 
-      - name: Print own tagname
-        run: echo "${{ env.TAG }}${{ env.VERSION }}"
+      # - name: Print own tagname
+      #   run: echo "${{ env.TAG }}${{ env.VERSION }}"
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          #tags: ${{ env.TAG }}${{ env.VERSION }}
+          #tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ env.TAG }}${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
