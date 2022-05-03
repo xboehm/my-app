@@ -5,6 +5,9 @@ on:
     branches: 
       - development
     types: [closed]
+  push:
+    branches:
+      - development
 
 # on:
 #   push:
@@ -23,7 +26,7 @@ env:
 
 jobs:
   build-and-push-to-registries:
-    if: ${{ github.event.pull_request.merged }}
+    #if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to multiple registries
     runs-on: ubuntu-latest
     permissions:
@@ -60,9 +63,10 @@ jobs:
           # flavor: |
           #   latest=false
           tags: |
-            type=semver,pattern={{version}}
-            type=edge,branch=development
-          #type=ref,event=branch
+            type=semver,pattern={{version}},priority=900
+            type=edge,branch=$repo.default_branch,priority=800
+            type=ref,event=branch,priority=700
+            type=ref,event=pr,priority=600
            
       - name: Print metadata tags
         run: echo "${{ steps.meta.outputs.tags }}"
