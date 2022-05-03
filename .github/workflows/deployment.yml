@@ -64,9 +64,10 @@ jobs:
           #   latest=false
           tags: |
             type=semver,pattern={{version}},priority=900
-            type=edge,branch=$repo.default_branch,priority=800
-            type=ref,event=branch,priority=700
-            type=ref,event=pr,priority=600
+            type=edge,branch=$repo.default_branch,priority=800,suffix=-ed
+            type=sha,format=short,priority=750
+            type=ref,event=branch,priority=700,suffix=-br
+            type=ref,event=pr,priority=600,suffix=-pr
            
       - name: Print metadata tags
         run: echo "${{ steps.meta.outputs.tags }}"
