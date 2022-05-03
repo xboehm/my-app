@@ -67,9 +67,9 @@ jobs:
           tags: |
             type=semver,pattern={{version}},priority=900
             type=edge,branch=$repo.default_branch,priority=800,suffix=-ed
-            type=sha,format=short,priority=750
+            type=sha,format=short,priority=750,enable=${{ !startsWith(github.ref, 'refs/tags/') }}
             #type=ref,event=branch,priority=700,suffix=-br
-            type=ref,event=pr,priority=600,suffix=-pr
+            #type=ref,event=pr,priority=600,suffix=-pr
            
       - name: Print metadata tags
         run: echo "${{ steps.meta.outputs.tags }}"
@@ -91,8 +91,8 @@ jobs:
         with:
           context: .
           push: true
-          #tags: ${{ steps.meta.outputs.tags }}
-          tags: |
-            ${{ env.TAG }}${{ env.VERSION }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          tags: ${{ steps.meta.outputs.tags }}
+          # tags: |
+          #   ${{ env.TAG }}${{ env.VERSION }}
+          #   ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
