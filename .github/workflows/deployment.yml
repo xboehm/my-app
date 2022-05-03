@@ -62,7 +62,7 @@ jobs:
           tags: |
             type=semver,pattern={{version}}
             type=edge,branch=development
-            #type=ref,event=branch
+          #type=ref,event=branch
            
       - name: Print metadata tags
         run: echo "${{ steps.meta.outputs.tags }}"
