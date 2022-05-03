@@ -5,11 +5,11 @@ on:
     branches: 
       - development
     types: [closed]
-  push:
-    branches:
-      - development
-    tags:
-      - 'v**'
+  # push:
+  #   branches:
+  #     - development
+  #   tags:
+  #     - 'v**'
 
 # on:
 #   push:
@@ -28,7 +28,7 @@ env:
 
 jobs:
   build-and-push-to-registries:
-    #if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to multiple registries
     runs-on: ubuntu-latest
     permissions:
@@ -83,16 +83,16 @@ jobs:
       # - name: Use version variable
       #   run: echo "${{ env.VERSION }}"
 
-      # - name: Print own tagname
-      #   run: echo "${{ env.TAG }}${{ env.VERSION }}"
+      - name: Print own tagname
+        run: echo "${{ env.TAG }}${{ env.VERSION }}"
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          # tags: |
-          #   ${{ env.TAG }}${{ env.VERSION }}
-          #   ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          #tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ env.TAG }}${{ env.VERSION }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
