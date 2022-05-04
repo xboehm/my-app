@@ -11,7 +11,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
           Say cheese! Flash.
           Coffee is great! Indeed.
-          BBQabc
+          BBQabcd
           v1.0.0
 
         </p>
