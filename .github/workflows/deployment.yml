@@ -5,6 +5,11 @@ on:
     branches: 
       - development
     types: [closed]
+  # push:
+  #   branches:
+  #     - development
+  #   tags:
+  #     - 'v**'
 
 # on:
 #   push:
@@ -23,7 +28,7 @@ env:
 
 jobs:
   build-and-push-to-registries:
-    if: ${{ github.event.pull_request.merged }}
+    #if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to multiple registries
     runs-on: ubuntu-latest
     permissions:
@@ -32,7 +37,7 @@ jobs:
 
     steps:
       - name: "Set environmental variables"
-        run: echo "TAG=$LOCAL_DOCKER_UNAME/$DOCKER_HUB_REPO:" >> $GITHUB_ENV
+        run: echo "TAG=$LOCAL_DOCKER_UNAME/$DOCKER_HUB_REPO:v" >> $GITHUB_ENV
       
       - name: Checkout repository
         uses: actions/checkout@v3 
@@ -56,13 +61,15 @@ jobs:
         with:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}            
-          # flavor: |
-          #   latest=false
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_HUB_REPO }}
+          flavor: |
+            latest=false
           tags: |
-            type=semver,pattern={{version}}
-            type=edge,branch=development
-          #type=ref,event=branch
+            type=semver,pattern={{version}},priority=900
+            #type=edge,branch=$repo.default_branch,priority=800,suffix=-ed
+            type=sha,format=short,priority=750,enable=${{ !startsWith(github.ref, 'refs/tags/') }}
+            #type=ref,event=branch,priority=700,suffix=-br
+            #type=ref,event=pr,priority=600,suffix=-pr
            
       - name: Print metadata tags
         run: echo "${{ steps.meta.outputs.tags }}"
@@ -76,14 +83,16 @@ jobs:
       # - name: Use version variable
       #   run: echo "${{ env.VERSION }}"
 
-      # - name: Print own tagname
-      #   run: echo "${{ env.TAG }}${{ env.VERSION }}"
+      - name: Print own tagname
+        run: echo "${{ env.TAG }}${{ env.VERSION }}"
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          #tags: ${{ env.TAG }}${{ env.VERSION }}
+          #tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ env.TAG }}${{ env.VERSION }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
           labels: ${{ steps.meta.outputs.labels }}
