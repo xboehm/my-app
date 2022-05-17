@@ -86,3 +86,28 @@ jobs:
             #${{ env.TAG }}${{ env.VERSION }}
             
           labels: ${{ steps.meta.outputs.labels }}
+
+  create-release:
+    name: Create a new GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
+        
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: Release ${{ env.VERSION }}
+          body: ${{ steps.Changelog.outputs.changelog }}
+          draft: false
+          prerelease: false
