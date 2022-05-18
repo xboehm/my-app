@@ -9,7 +9,7 @@ function App() {
         <p>
 
           Edit <code>src/App.js</code> and save to reload.
-          Say cheese! Flash. 6 
+          Say cheese! Flash. 7 
           Coffee is great! Indeed.
           BBQabcd
           v1.1.2
