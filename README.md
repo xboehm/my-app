@@ -1,3 +1,4 @@
+![example workflow](https://github.com/xboehm/my-app/actions/workflows/CI.yml/badge.svg)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
