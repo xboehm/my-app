@@ -146,6 +146,9 @@ jobs:
       #   uses: bruceadams/get-release@v1.2.3
       #   env:
       #     GITHUB_TOKEN: ${{ github.token }}
+      - name: Get version from package.json
+        id: get-version
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
       - name: Comment on the result
         uses: actions/github-script@v3
         with:
@@ -156,7 +159,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
-              Great job **@${context.payload.sender.login}**! Your PR is merged into the Development branch. The application is containerized
-              and available in GitHub Packages. A new release was created, see: https://github.com/xboehm/my-app/releases/tag/v${build-and-push-to-registry.env.VERSION}.
+              Great job **@${context.payload.sender.login}**! Your PR is merged into the Development branch. 
+              The application is containerized and available in GitHub Packages. A new release was created: 
+              https://github.com/xboehm/my-app/releases/tag/v${env.VERSION}
               `
             })
