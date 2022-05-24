@@ -11,7 +11,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
           Say cheese! Flash. 8 
           Coffee is great! Indeed. <br></br>
-          v1.1.8
+          v1.1.9
         </p>
         <a
           className="App-link"
