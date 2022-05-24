@@ -10,9 +10,8 @@ function App() {
 
           Edit <code>src/App.js</code> and save to reload.
           Say cheese! Flash. 8 
-          Coffee is great! Indeed.
-          BBQabcd
-          v1.1.2
+          Coffee is great! Indeed. <br></br>
+          v1.1.5
         </p>
         <a
           className="App-link"
