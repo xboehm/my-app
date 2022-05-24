@@ -9,7 +9,7 @@ function App() {
         <p>
 
           Edit <code>src/App.js</code> and save to reload.
-          Say cheese! Flash. 8 
+          Say cheese! Flash. 9
           Coffee is great! Indeed. <br></br>
           v1.1.14
         </p>
