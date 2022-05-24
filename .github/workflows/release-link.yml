@@ -1,3 +1,5 @@
+name: Test release link action
+
 on:
   release:
     types: [published]
