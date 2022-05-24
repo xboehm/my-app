@@ -141,6 +141,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Get the upload URL for a release
+        uses: bruceadams/get-release@v1.2.2
       - name: Comment on the result
         uses: actions/github-script@v3
         with:
@@ -152,6 +154,6 @@ jobs:
               repo: context.repo.repo,
               body: `
               Great job **@${context.payload.sender.login}**! Your PR is merged into the Development branch. The application is containerized
-              and available in GitHub Packages. A new release was created.
+              and available in GitHub Packages. A new release was created, see: ${ steps.get_release.outputs.upload_url }.
               `
             })
