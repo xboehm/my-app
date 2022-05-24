@@ -157,6 +157,6 @@ jobs:
               repo: context.repo.repo,
               body: `
               Great job **@${context.payload.sender.login}**! Your PR is merged into the Development branch. The application is containerized
-              and available in GitHub Packages. A new release was created, see: https://github.com/xboehm/my-app/releases/tag/v${{ env.VERSION }}.
+              and available in GitHub Packages. A new release was created, see: https://github.com/xboehm/my-app/releases/tag/v${build-and-push-to-registry.env.VERSION}.
               `
             })
