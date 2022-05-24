@@ -142,9 +142,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Get the upload URL for a release
-        uses: bruceadams/get-release@v1.2.2
+        uses: bruceadams/get-release@v1.2.3
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
       - name: Comment on the result
         uses: actions/github-script@v3
         with:
