@@ -1,15 +1,15 @@
 name: Deployment
 
-on:
-  pull_request:
-    branches: 
-      - development
-    types: [closed]
-
 # on:
-#   push:
+#   pull_request:
 #     branches: 
 #       - development
+#     types: [closed]
+
+on:
+  push:
+    branches: 
+      - development
 
 env:
   REGISTRY: ghcr.io
@@ -53,6 +53,7 @@ jobs:
     if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to registry
     runs-on: ubuntu-latest
+    environment: dev
     permissions:
       contents: read
       packages: write
@@ -107,6 +108,14 @@ jobs:
 
       - name: Print own tagname
         run: echo "${{ env.TAG }}${{ env.VERSION }}"
+
+      - name: Set env variables
+        run: |
+          touch .env
+          echo "REACT_APP_1="$REACT_APP_1"" >> .env
+        env:
+          REACT_APP_1: ${{ secrets.TESTENV }}
+
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
