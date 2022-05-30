@@ -4,7 +4,8 @@ import './App.css';
 const msg = process.env.REACT_APP_1;
 const pic = process.env.REACT_APP_LOGO;
 
-import image from pic;
+// import image from pic;
+/* <img src={image} className="Inst-logo" alt="inst-logo" /> */
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           Say cheese! Flash. 10
           Coffee is great! Indeed. <br></br>
           v1.1.14<br></br>
-          {msg}
+          {msg} {pic}
         </p>
         <a
           className="App-link"
@@ -27,7 +28,7 @@ function App() {
         >
           Learn React
         </a>
-        <img src={image} className="Inst-logo" alt="inst-logo" />
+
       </header>
     </div>
   );
