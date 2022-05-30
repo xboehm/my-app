@@ -4,8 +4,8 @@ import './App.css';
 const msg = process.env.REACT_APP_1;
 const pic = process.env.REACT_APP_LOGO;
 
-// import image from pic;
-/* <img src={image} className="Inst-logo" alt="inst-logo" /> */
+import image from pic;
+
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
         >
           Learn React
         </a>
-
+        <img src={image} className="Inst-logo" alt="inst-logo" />
       </header>
     </div>
   );
