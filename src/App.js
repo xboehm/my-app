@@ -12,7 +12,7 @@ function App() {
           Say cheese! Flash. 9
           Coffee is great! Indeed. <br></br>
           v1.1.14
-          o
+          oo
         </p>
         <a
           className="App-link"
