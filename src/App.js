@@ -1,13 +1,12 @@
-const msg = process.env.REACT_APP_1;
-const pic = process.env.REACT_APP_LOGO;
 import logo from './logo.svg';
-import image from pic;
 import './App.css';
 
+const msg = process.env.REACT_APP_1
+const pic = process.env.REACT_APP_LOGO;
+//const pic = './hspf.svg'
 
-
-
-
+//import image from pic;
+//<img src={image} className="Inst-logo" alt="inst-logo" />
 
 function App() {
   return (
@@ -30,7 +29,6 @@ function App() {
         >
           Learn React
         </a>
-        <img src={image} className="Inst-logo" alt="inst-logo" />
       </header>
     </div>
   );
