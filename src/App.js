@@ -4,6 +4,8 @@ import './App.css';
 const msg = process.env.REACT_APP_1
 const pic = process.env.REACT_APP_LOGO
 
+import image from {pic};
+
 function App() {
   return (
     <div className="App">
@@ -25,16 +27,7 @@ function App() {
         >
           Learn React
         </a>
-        <script>
-
-          var img = document.createElement("img");
-          img.src = "./{pic}";
-
-          var div = document.getElementById("x");
-          div.appendChild(img);
-          //block.setAttribute("style", "text-align:center");
-
-    </script>
+        <img src={image} className="Inst-logo" alt="inst-logo" />
       </header>
     </div>
   );
