@@ -53,14 +53,23 @@ jobs:
     #if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to registry
     runs-on: ubuntu-latest
-    environment: dev
+    strategy:
+      matrix:
+        include:
+          - environment: hspf
+            url: https://europe.my.service
+          - environment: stadt
+            url: https://asia.my.service
+    environment:
+      url: ${{ matrix.url }}
+      name: ${{ matrix.environment }}
     permissions:
       contents: read
       packages: write
 
     steps:
-      - name: "Set environmental variables"
-        run: echo "TAG=$LOCAL_DOCKER_UNAME/$DOCKER_HUB_REPO:v" >> $GITHUB_ENV
+      # - name: "Set environmental variables"
+      #   run: echo "TAG=$LOCAL_DOCKER_UNAME/$DOCKER_HUB_REPO:v" >> $GITHUB_ENV
       
       - name: Checkout repository
         uses: actions/checkout@v3 
@@ -106,8 +115,8 @@ jobs:
       # - name: Use version variable
       #   run: echo "${{ env.VERSION }}"
 
-      - name: Print own tagname
-        run: echo "${{ env.TAG }}${{ env.VERSION }}"
+      # - name: Print own tagname
+      #   run: echo "${{ env.TAG }}${{ env.VERSION }}"
 
       - name: Set env variables
         run: |
@@ -123,7 +132,7 @@ jobs:
           context: .
           push: true
           #tags: ${{ steps.meta.outputs.tags }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.environment }}-${{ env.VERSION }}
             #${{ env.TAG }}${{ env.VERSION }}
             
           labels: ${{ steps.meta.outputs.labels }}
