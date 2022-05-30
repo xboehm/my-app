@@ -119,6 +119,7 @@ jobs:
         run: |
           touch .env
           echo "REACT_APP_1="$REACT_APP_1"" >> .env
+          echo "REACT_APP_LOGO="$LOGO"" >> .env
         env:
           REACT_APP_1: ${{ secrets.TESTENV }}
 
@@ -129,7 +130,7 @@ jobs:
           context: .
           push: true
           #tags: ${{ steps.meta.outputs.tags }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}-${{ matrix.environment }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.VERSION }}-${{ matrix.environment }}
             #${{ env.TAG }}${{ env.VERSION }}
             
           labels: ${{ steps.meta.outputs.labels }}

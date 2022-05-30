@@ -1,4 +1,6 @@
-import logo from './logo.svg';
+const pic = process.env.REACT_APP_LOGO
+
+import logo from './{pic}';
 import './App.css';
 
 const msg = process.env.REACT_APP_1
