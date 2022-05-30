@@ -1,0 +1,15 @@
+name: Environment test
+
+on:
+  push:
+    branches: 
+      - environment
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: dev
+    
+    steps:
+      - name: print env
+        run: echo ${{ secrets.REACT_APP_1 }}
