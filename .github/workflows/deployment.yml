@@ -122,6 +122,7 @@ jobs:
           echo "REACT_APP_LOGO="$LOGO"" >> .env
         env:
           REACT_APP_1: ${{ secrets.TESTENV }}
+          LOGO: ${{ secrets.LOGO }}
 
 
       - name: Build and push Docker image
