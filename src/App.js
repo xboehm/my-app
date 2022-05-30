@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
-const msg = process.env.REACT_APP_0
+const msg = process.env.REACT_APP_1
 
 function App() {
   return (

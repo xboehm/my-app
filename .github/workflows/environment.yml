@@ -10,4 +10,8 @@ jobs:
     
     steps:
       - name: print env
-        run: echo ${{ secrets.REACT_APP_1 }}
+        run: |
+          touch .env
+          echo "$REACT_APP_1" >> .env
+        env:
+          REACT_APP_1: ${{ secrets.REACT_APP_1 }}
