@@ -1,9 +1,8 @@
-const pic = process.env.REACT_APP_LOGO
-
-import logo from './{pic}';
+import logo from './logo.svg';
 import './App.css';
 
 const msg = process.env.REACT_APP_1
+const pic = process.env.REACT_APP_LOGO
 
 function App() {
   return (
@@ -26,6 +25,16 @@ function App() {
         >
           Learn React
         </a>
+        <script>
+
+          var img = document.createElement("img");
+          img.src = "./{pic}";
+
+          var div = document.getElementById("x");
+          div.appendChild(img);
+          //block.setAttribute("style", "text-align:center");
+
+    </script>
       </header>
     </div>
   );
