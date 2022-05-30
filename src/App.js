@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 
+const msg = process.env.REACT_APP_0
+
 function App() {
   return (
     <div className="App">
@@ -11,7 +13,8 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
           Say cheese! Flash. 10
           Coffee is great! Indeed. <br></br>
-          v1.1.14
+          v1.1.14<br></br>
+          {msg}
         </p>
         <a
           className="App-link"
