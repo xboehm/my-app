@@ -4,7 +4,7 @@ import './App.css';
 const msg = process.env.REACT_APP_1;
 const pic = process.env.REACT_APP_LOGO;
 
-import image from '{pic}';
+//import image from {pic};
 
 
 function App() {
