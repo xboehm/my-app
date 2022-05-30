@@ -57,11 +57,8 @@ jobs:
       matrix:
         include:
           - environment: hspf
-            url: https://europe.my.service
           - environment: stadt
-            url: https://asia.my.service
     environment:
-      url: ${{ matrix.url }}
       name: ${{ matrix.environment }}
     permissions:
       contents: read
@@ -132,7 +129,7 @@ jobs:
           context: .
           push: true
           #tags: ${{ steps.meta.outputs.tags }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.environment }}-${{ env.VERSION }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}-${{ matrix.environment }}
             #${{ env.TAG }}${{ env.VERSION }}
             
           labels: ${{ steps.meta.outputs.labels }}
