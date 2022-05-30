@@ -12,6 +12,7 @@ jobs:
       - name: print env
         run: |
           touch .env
+          echo $REACT_APP_1
           echo "$REACT_APP_1" >> .env
           cat .env
         env:
