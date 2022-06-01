@@ -1,15 +1,15 @@
 name: Deployment
 
-# on:
-#   pull_request:
-#     branches: 
-#       - development
-#     types: [closed]
-
 on:
-  push:
+  pull_request:
     branches: 
       - development
+    types: [closed]
+
+# on:
+#   push:
+#     branches: 
+#       - development
 
 env:
   REGISTRY: ghcr.io
@@ -50,7 +50,7 @@ jobs:
           prerelease: false
 
   build-and-push-to-registry:
-    #if: ${{ github.event.pull_request.merged }}
+    if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to registry
     runs-on: ubuntu-latest
     strategy:
