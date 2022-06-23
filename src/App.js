@@ -12,9 +12,9 @@ function App() {
         <p>
 
           Edit <code>src/App.js</code> and save to reload.
-          Say cheese! a
+          Say cheese!
           Coffee is great! Indeed. <br></br>
-          v1.1.15<br></br>
+          v1.1.17<br></br>
           {msg} {pic}
         </p>
         <a
