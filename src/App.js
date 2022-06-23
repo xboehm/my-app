@@ -2,11 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 const msg = process.env.REACT_APP_1
-const pic = process.env.REACT_APP_LOGO;
-//const pic = './hspf.svg'
-
-//import image from pic;
-//<img src={image} className="Inst-logo" alt="inst-logo" />
+const pic = process.env.REACT_APP_LOGO
 
 function App() {
   return (
