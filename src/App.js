@@ -15,6 +15,7 @@ function App() {
           Say cheese!
           Coffee is great! Indeed. <br></br>
           v1.1.17<br></br>
+          Feature 1
           {msg} {pic}
         </p>
         <a
