@@ -44,13 +44,13 @@ jobs:
     if: ${{ github.event.pull_request.merged }}
     name: Build Docker image and push to registry
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - environment: hspf
-          - environment: stadt
-    environment:
-      name: ${{ matrix.environment }}
+    # strategy:
+    #   matrix:
+    #     include:
+    #       - environment: hspf
+    #       - environment: stadt
+    # environment:
+    #   name: ${{ matrix.environment }}
     permissions:
       contents: read
       packages: write
@@ -106,14 +106,14 @@ jobs:
       # - name: Print own tagname
       #   run: echo "${{ env.TAG }}${{ env.VERSION }}"
 
-      - name: Set env variables
-        run: |
-          touch .env
-          echo "REACT_APP_1="$REACT_APP_1"" >> .env
-          echo "REACT_APP_LOGO="$LOGO"" >> .env
-        env:
-          REACT_APP_1: ${{ secrets.TESTENV }}
-          LOGO: ${{ secrets.LOGO }}
+      # - name: Set env variables
+      #   run: |
+      #     touch .env
+      #     echo "REACT_APP_1="$REACT_APP_1"" >> .env
+      #     echo "REACT_APP_LOGO="$LOGO"" >> .env
+      #   env:
+      #     REACT_APP_1: ${{ secrets.TESTENV }}
+      #     LOGO: ${{ secrets.LOGO }}
 
 
       - name: Build and push Docker image
@@ -122,7 +122,8 @@ jobs:
           context: .
           push: true
           #tags: ${{ steps.meta.outputs.tags }}
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.VERSION }}-${{ matrix.environment }}
+          #tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.VERSION }}-${{ matrix.environment }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.VERSION }}
             #${{ env.TAG }}${{ env.VERSION }}
             
           labels: ${{ steps.meta.outputs.labels }}
