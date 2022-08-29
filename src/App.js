@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
 const msg = process.env.REACT_APP_1
 const pic = process.env.REACT_APP_LOGO
