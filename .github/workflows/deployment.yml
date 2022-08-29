@@ -128,6 +128,21 @@ jobs:
             
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Replace scss file
+        run: cp -f src/App1.scss src/App.scss
+
+      - name: Build and push second Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          #tags: ${{ steps.meta.outputs.tags }}
+          #tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.VERSION }}-${{ matrix.environment }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ env.VERSION }}-2
+            #${{ env.TAG }}${{ env.VERSION }}
+            
+          labels: ${{ steps.meta.outputs.labels }}
+
   label:
     runs-on: ubuntu-latest
     needs: [build-and-push-to-registry, create-release]
